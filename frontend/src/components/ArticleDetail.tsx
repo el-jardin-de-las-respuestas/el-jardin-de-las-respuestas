@@ -18,7 +18,7 @@ const ArticleDetail: React.FC = () => {
 
     const API_URL = import.meta.env.VITE_API_URL;
     async function getLibraryItemById(id: number) {
-        const res = await axios.get(`${API_URL}/${id}`);
+        const res = await axios.get(`${API_URL}/library/${id}`);
         return res.data;
     }
     useEffect(() => {
@@ -68,8 +68,44 @@ const ArticleDetail: React.FC = () => {
                 </p>
 
                 {/* Contenido completo */}
-                <div className="bg-pink-100 p-4 rounded-2xl whitespace-pre-wrap text-gray-800 leading-relaxed">
-                    {article.content}
+                <div className="bg-pink-100 p-6 rounded-2xl text-gray-800 leading-relaxed">
+                    {(() => {
+                        try {
+                            const sections = JSON.parse(article.content);
+                            if (Array.isArray(sections)) {
+                                return sections.map((section: any, idx: number) => (
+                                    <div key={idx} className="mb-6">
+                                        {section.titulo && (
+                                            <h3 className="text-xl font-bold text-pink-700 mb-2">
+                                                {section.titulo}
+                                            </h3>
+                                        )}
+                                        {section.texto && (
+                                            <p className="mb-4">{section.texto}</p>
+                                        )}
+                                        {section.contenido && Array.isArray(section.contenido) && (
+                                            <div className="space-y-2 mb-4">
+                                                {section.contenido.map((text: string, i: number) => (
+                                                    <p key={i}>{text}</p>
+                                                ))}
+                                            </div>
+                                        )}
+                                        {section.items && Array.isArray(section.items) && (
+                                            <ul className={`${section.tipo === 'numerada' ? 'list-decimal' : 'list-disc'} pl-6 space-y-2 mb-4`}>
+                                                {section.items.map((item: string, i: number) => (
+                                                    <li key={i}>{item}</li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
+                                ));
+                            }
+                        } catch (e) {
+                            // Si no es JSON, mostrar como texto plano
+                            return <div className="whitespace-pre-wrap">{article.content}</div>;
+                        }
+                        return <div className="whitespace-pre-wrap">{article.content}</div>;
+                    })()}
                 </div>
             </div>
         </section>
