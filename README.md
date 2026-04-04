@@ -63,7 +63,24 @@ Sigue estos pasos para levantar el proyecto en tu entorno local usando **pnpm**.
 
 - **Node.js** (v18 o superior)
 - **pnpm** (`npm install -g pnpm`)
-- **PostgreSQL**
+- **PostgreSQL** (Docker o instalación local)
+
+---
+
+### 🗄️ Opciones de Base de Datos Local
+
+Para desarrollar localmente, puedes usar cualquiera de estas dos opciones:
+
+#### Opción A: Usando Docker (Recomendado)
+Si tienes **Docker** instalado, puedes levantar una base de datos PostgreSQL lista para usar con un solo comando:
+```bash
+cd backend
+docker-compose up -d
+```
+Esto creará un contenedor con PostgreSQL persistente en el puerto `5432`, usando las credenciales por defecto (`postgres`/`postgres`).
+
+#### Opción B: PostgreSQL Instalado Localmente
+Si ya tienes **PostgreSQL** instalado en tu sistema, asegúrate de que esté corriendo y que la `DATABASE_URL` en tu archivo `.env` apunte a tu servidor local.
 
 ---
 

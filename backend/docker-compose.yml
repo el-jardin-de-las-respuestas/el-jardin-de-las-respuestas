@@ -1,17 +1,6 @@
-services:
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: jardin_backend
-    ports:
-      - '4000:4000'
-    env_file:
-      - .env
-    restart: always
-    depends_on:
-      - db
+version: '3.8'
 
+services:
   db:
     image: postgres:15-alpine
     container_name: jardin_db
@@ -21,3 +10,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: jardindb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres_data:
