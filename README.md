@@ -77,10 +77,14 @@ Si tienes **Docker** instalado, puedes levantar una base de datos PostgreSQL lis
 cd backend
 docker-compose up -d
 ```
-Esto creará un contenedor con PostgreSQL persistente en el puerto `5432`, usando las credenciales por defecto (`postgres`/`postgres`).
+Esto creará un contenedor con PostgreSQL persistente en el puerto `5432`.
+**⚠️ Importante:** Las credenciales configuradas en Docker son fijas:
+- **Usuario:** `postgres`
+- **Contraseña:** `postgres`
+- **Base de Datos:** `jardindb`
 
 #### Opción B: PostgreSQL Instalado Localmente
-Si ya tienes **PostgreSQL** instalado en tu sistema, asegúrate de que esté corriendo y que la `DATABASE_URL` en tu archivo `.env` apunte a tu servidor local.
+Si ya tienes **PostgreSQL** instalado en tu sistema, asegúrate de que esté corriendo y que la `DATABASE_URL` en tu archivo `.env` apunte a tu servidor local con tus propias credenciales.
 
 ---
 
@@ -93,17 +97,20 @@ Si ya tienes **PostgreSQL** instalado en tu sistema, asegúrate de que esté cor
    ```
 2. Configura las variables de entorno en un archivo `.env` dentro de `backend/`:
    ```env
-   DATABASE_URL="postgresql://usuario:password@localhost:5432/jardindb"
-   DIRECT_URL="postgresql://usuario:password@localhost:5432/jardindb"
+   # Si usas Docker, la URL sería:
+   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/jardindb"
+   DIRECT_URL="postgresql://postgres:postgres@localhost:5432/jardindb"
+   
+   # Configuración General
    JWT_SECRET="tu_secreto_para_jwt"
    ADMIN_PASSWORD="password_para_el_admin_inicial"
    PORT=4000
    ```
 3. Prepara la base de datos con Prisma:
    ```bash
-   npx prisma generate
-   npx prisma migrate dev
-   npx prisma db seed  # Esto carga la Biblioteca ESI, Roles y Foros
+   pnpm prisma generate
+   pnpm prisma migrate dev
+   pnpm prisma db seed  # Esto carga la Biblioteca ESI, Roles y Foros
    ```
 4. Inicia el servidor de desarrollo:
    ```bash
@@ -156,6 +163,6 @@ pnpm build
 
 ## 🛠️ Comandos Útiles
 
-- **Explorar Base de Datos:** `npx prisma studio` (desde `/backend`)
-- **Actualizar Biblioteca:** Si modificas el seed, ejecuta `npx prisma db seed` para impactar los cambios.
+- **Explorar Base de Datos:** `pnpm prisma studio` (desde `/backend`)
+- **Actualizar Biblioteca:** Si modificas el seed, ejecuta `pnpm prisma db seed` para impactar los cambios.
 - **Producción:** Para el build de frontend usa `pnpm build`.
