@@ -55,8 +55,66 @@ Las relaciones están diseñadas para garantizar integridad, privacidad y escala
 
 ---
 
-## 🚀 Instalación
+## 🚀 Guía de Inicio Rápido (Local)
 
-1. Clonar el repositorio:
+Sigue estos pasos para levantar el proyecto en tu entorno local usando **pnpm**.
+
+### 📋 Requisitos Previos
+
+- **Node.js** (v18 o superior)
+- **pnpm** (`npm install -g pnpm`)
+- **PostgreSQL**
+
+---
+
+### 🔧 1. Configuración del Backend
+
+1. Entra a la carpeta del backend e instala las dependencias:
    ```bash
-   git clone https://github.com/emanuelcabral8/El-Jardin-de-las-Respuestas.git
+   cd backend
+   pnpm install
+   ```
+2. Configura las variables de entorno en un archivo `.env` dentro de `backend/`:
+   ```env
+   DATABASE_URL="postgresql://usuario:password@localhost:5432/jardindb"
+   DIRECT_URL="postgresql://usuario:password@localhost:5432/jardindb"
+   JWT_SECRET="tu_secreto_para_jwt"
+   ADMIN_PASSWORD="password_para_el_admin_inicial"
+   PORT=4000
+   ```
+3. Prepara la base de datos con Prisma:
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev
+   npx prisma db seed  # Esto carga la Biblioteca ESI, Roles y Foros
+   ```
+4. Inicia el servidor de desarrollo:
+   ```bash
+   pnpm start:dev
+   ```
+
+---
+
+### 🎨 2. Configuración del Frontend
+
+1. Entra a la carpeta del frontend e instala las dependencias:
+   ```bash
+   cd frontend
+   pnpm install
+   ```
+2. Configura la URL de la API en un archivo `.env` dentro de `frontend/`:
+   ```env
+   VITE_API_URL="http://localhost:4000"
+   ```
+3. Inicia el sitio en modo desarrollo:
+   ```bash
+   pnpm dev
+   ```
+
+---
+
+## 🛠️ Comandos Útiles
+
+- **Explorar Base de Datos:** `npx prisma studio` (desde `/backend`)
+- **Actualizar Biblioteca:** Si modificas el seed, ejecuta `npx prisma db seed` para impactar los cambios.
+- **Producción:** Para el build de frontend usa `pnpm build`.
