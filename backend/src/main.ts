@@ -19,7 +19,11 @@ async function bootstrap() {
   const port = process.env.PORT || 4000;
   await app.listen(port);
 
-  const url = process.env.APP_URL ?? `http://localhost:${port}`;
-  console.log(`La app está corriendo en: ${url}`);
+  const isDev = process.env.ENVIROMENT !== 'production';
+  if (isDev) {
+    console.log(`La app está corriendo en: http://localhost:${port}`);
+  } else {
+    console.log(`La app está corriendo en el puerto: ${port}`);
+  }
 }
 bootstrap();
