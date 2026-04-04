@@ -130,6 +130,30 @@ Si ya tienes **PostgreSQL** instalado en tu sistema, asegúrate de que esté cor
 
 ---
 
+## 🏗️ Construcción para Producción
+
+Si necesitas generar la versión lista para despliegue, sigue estos pasos:
+
+### Backend (NestJS)
+El build transforma el código TypeScript a JavaScript puro dentro de la carpeta `/dist`.
+```bash
+cd backend
+pnpm build
+```
+Para ejecutar la versión construida:
+```bash
+pnpm start:prod
+```
+
+### Frontend (Vite)
+El build genera archivos estáticos optimizados (HTML, JS, CSS) en la carpeta `/dist`.
+```bash
+cd frontend
+pnpm build
+```
+
+---
+
 ## 🛠️ Comandos Útiles
 
 - **Explorar Base de Datos:** `npx prisma studio` (desde `/backend`)
