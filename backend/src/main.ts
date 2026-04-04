@@ -9,6 +9,7 @@ async function bootstrap() {
     'https://el-jardin-de-las-respuestas.netlify.app',
     'https://jardinrespuestas.netlify.app',
   ];
+
   app.enableCors({
     origin: allowedOrigins,
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
@@ -17,6 +18,7 @@ async function bootstrap() {
 
   const port = process.env.PORT || 4000;
   await app.listen(port);
-  console.log(`La app está corriendo en: ${await app.getUrl()}`);
+
+  console.log(`La app está corriendo en: http://localhost:${port}`);
 }
 bootstrap();
