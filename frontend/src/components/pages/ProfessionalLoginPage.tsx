@@ -12,7 +12,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 export function ProfessionalLoginPage() {
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [message, setMessage] = useState<{
         type: "success" | "error";
